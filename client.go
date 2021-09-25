@@ -24,10 +24,13 @@ func (e *HTTPError) Error() string {
 }
 
 func New(c ...*http.Client) *Client {
-	if c == nil {
-		c[0] = &http.Client{Timeout: time.Second * 30}
+	var httpClient *http.Client
+	if len(c) == 0 {
+		httpClient = &http.Client{Timeout: time.Second * 30}
+	} else {
+		httpClient = c[0]
 	}
-	return &Client{c[0]}
+	return &Client{httpClient}
 }
 
 func (c *Client) do(req *http.Request) (*response, error) {
