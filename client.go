@@ -118,13 +118,13 @@ func (c *Client) PutImage(r io.Reader) (*ImageData, error) {
 	return &data, err
 }
 
-func (c *Client) EditImage(params *EditImageParams) (*EditImageResponse, error) {
+func (c *Client) EditImage(id string, params *EditImageParams) (*EditImageResponse, error) {
 	data, err := json.Marshal(params)
 	if err != nil {
 		return nil, err
 	}
 
-	req, err := http.NewRequest("POST", EditImageURL, bytes.NewReader(data))
+	req, err := http.NewRequest("POST", fmt.Sprintf(EditImageURL, id), bytes.NewReader(data))
 	if err != nil {
 		return nil, err
 	}
