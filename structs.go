@@ -25,24 +25,24 @@ type ImageData struct {
 type EditImageParams struct {
 	Animated bool `json:"animated"`
 	Async    struct {
-		CallbackURL string `json:"callbackURL"`
-		Key         string `json:"key"`
-		UseCallback bool   `json:"useCallback"`
-	} `json:"async"`
-	BorderWidth int  `json:"borderWidth"`
+		CallbackURL string `json:"callbackURL,omitempty"`
+		Key         string `json:"key,omitempty"`
+		UseCallback bool   `json:"useCallback,omitempty"`
+	} `json:"async,omitempty"`
+	BorderWidth int  `json:"borderWidth,omitempty"`
 	Cdn         bool `json:"cdn"`
 	Cropping    struct {
-		FlipX  bool `json:"flipX"`
-		FlipY  bool `json:"flipY"`
-		Height int  `json:"height"`
-		Left   int  `json:"left"`
-		Rotate int  `json:"rotate"`
-		Top    int  `json:"top"`
-		Width  int  `json:"width"`
-	} `json:"cropping"`
+		FlipX  bool `json:"flipX,omitempty"`
+		FlipY  bool `json:"flipY,omitempty"`
+		Height int  `json:"height,omitempty"`
+		Left   int  `json:"left,omitempty"`
+		Rotate int  `json:"rotate,omitempty"`
+		Top    int  `json:"top,omitempty"`
+		Width  int  `json:"width,omitempty"`
+	} `json:"cropping,omitempty"`
 	Flags        []string `json:"flags"`
-	FlagsOpacity int      `json:"flagsOpacity"`
-	Framerate    int      `json:"framerate"`
+	FlagsOpacity int      `json:"flagsOpacity,omitempty"`
+	Framerate    int      `json:"framerate,omitempty"`
 	Layout       string   `json:"layout"`
 	Style        string   `json:"style"`
 }

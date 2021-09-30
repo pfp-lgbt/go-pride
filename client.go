@@ -102,11 +102,13 @@ func (c *Client) GetFlag(name string) ([]byte, error) {
 	return c.doBinary(req)
 }
 
-func (c *Client) PutImage(r io.Reader) (*ImageData, error) {
+func (c *Client) PutImage(r io.Reader, contentType string) (*ImageData, error) {
 	req, err := http.NewRequest("PUT", PutImageURL, r)
 	if err != nil {
 		return nil, err
 	}
+
+	req.Header.Set("Content-Type", contentType)
 
 	resp, err := c.do(req)
 
