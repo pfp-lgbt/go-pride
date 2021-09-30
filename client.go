@@ -131,6 +131,8 @@ func (c *Client) EditImage(id string, params *EditImageParams) (*EditImageRespon
 		return nil, err
 	}
 
+	req.Header.Set("Content-Type", "application/json")
+
 	resp, err := c.do(req)
 	if err != nil {
 		return nil, err
