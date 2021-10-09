@@ -146,8 +146,8 @@ func (c *Client) EditImage(id string, params *EditImageParams) (*EditImageRespon
 	return &r, nil
 }
 
-func (c *Client) SearchFlags(query string) (map[string]Flag, error) {
-	req, err := http.NewRequest("GET", fmt.Sprintf(SearchFlagsURL, query), nil)
+func (c *Client) SearchFlags(query string, limit int) (map[string]Flag, error) {
+	req, err := http.NewRequest("GET", fmt.Sprintf(SearchFlagsURL, query, limit), nil)
 	if err != nil {
 		return nil, err
 	}
