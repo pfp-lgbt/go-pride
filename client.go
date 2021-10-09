@@ -145,3 +145,23 @@ func (c *Client) EditImage(id string, params *EditImageParams) (*EditImageRespon
 
 	return &r, nil
 }
+
+func (c *Client) SearchFlags(query string) (map[string]Flag, error) {
+	req, err := http.NewRequest("GET", fmt.Sprintf(SearchFlagsURL, query), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	r, err := c.do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	flags := make(map[string]Flag)
+	err = json.Unmarshal(r.Data, &flags)
+	if err != nil {
+		return nil, err
+	}
+
+	return flags, nil
+}
