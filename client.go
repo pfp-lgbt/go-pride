@@ -16,8 +16,8 @@ type Client struct {
 }
 
 type Config struct {
-	c      *http.Client
-	apiKey string
+	HTTPClient *http.Client
+	APIKey     string
 }
 
 type HTTPError struct {
@@ -31,12 +31,12 @@ func (e *HTTPError) Error() string {
 
 func New(conf *Config) *Client {
 	var httpClient *http.Client
-	if conf.c == nil {
+	if conf.HTTPClient == nil {
 		httpClient = &http.Client{Timeout: time.Second * 30}
 	} else {
-		httpClient = conf.c
+		httpClient = conf.HTTPClient
 	}
-	return &Client{c: httpClient, apiKey: conf.apiKey}
+	return &Client{c: httpClient, apiKey: conf.APIKey}
 }
 
 func (c *Client) do(req *http.Request) (*response, error) {
