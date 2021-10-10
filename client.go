@@ -121,6 +121,9 @@ func (c *Client) PutImage(r io.Reader, contentType string) (*ImageData, error) {
 	req.Header.Set("Content-Type", contentType)
 
 	resp, err := c.do(req)
+	if err != nil {
+		return nil, err
+	}
 
 	var data ImageData
 	if err := json.Unmarshal(resp.Data, &data); err != nil {
