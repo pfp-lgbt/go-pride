@@ -11,7 +11,13 @@ import (
 )
 
 type Client struct {
-	c *http.Client
+	c      *http.Client
+	apiKey string
+}
+
+type Config struct {
+	c      *http.Client
+	apiKey string
 }
 
 type HTTPError struct {
@@ -23,17 +29,21 @@ func (e *HTTPError) Error() string {
 	return fmt.Sprintf("%d: %s", e.Status, e.Message)
 }
 
-func New(c ...*http.Client) *Client {
+func New(conf *Config) *Client {
 	var httpClient *http.Client
-	if len(c) == 0 {
+	if conf.c == nil {
 		httpClient = &http.Client{Timeout: time.Second * 30}
 	} else {
-		httpClient = c[0]
+		httpClient = conf.c
 	}
-	return &Client{httpClient}
+	return &Client{c: httpClient, apiKey: conf.apiKey}
 }
 
 func (c *Client) do(req *http.Request) (*response, error) {
+	if c.apiKey != "" {
+		req.Header.Set("X-API-Key", c.apiKey)
+	}
+
 	resp, err := c.c.Do(req)
 	if err != nil {
 		return nil, err
